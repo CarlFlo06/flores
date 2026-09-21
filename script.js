@@ -11,10 +11,13 @@ const CONFIG = {
   tituloFotos: "Momentos que dejan huella",
   fotos: [
     { src: "img/foto1.jpeg", pie: "Una clase, muchas enseñanzas" },
-    { src: "img/foto2.jpeg", pie: "Aprender también es compartir" }
+    { src: "img/foto2.jpeg", pie: "Aprender también es compartir" },
   ],
-  cancion: { src: "", titulo: "Una canción para usted" }, // src: "musica/cancion.mp3"
+  // Si tienes un MP3, coloca aquí su ruta, por ejemplo: "img/cancion.mp3"
+  cancion: { src: "", titulo: "Una canción para usted" },
 };
+
+const $ = (id) => document.getElementById(id);
 
 /* ---------- Girasol en SVG (se dibuja por código) ---------- */
 let _sid = 0;
@@ -39,7 +42,6 @@ function sunflower({ petals = 21, cls = "" } = {}) {
     <radialGradient id="${id}c"><stop offset="0" stop-color="#7A4416"/><stop offset="1" stop-color="#3A1E08"/></radialGradient></defs>
     ${back}${front}<g class="disc"><circle cx="100" cy="100" r="38" fill="url(#${id}c)"/><g fill="#1F0F04" opacity=".55">${seeds}</g></g></svg>`;
 }
-
 /* ---------- Música (archivo real o melodía de ejemplo) ---------- */
 const Music = (() => {
   let audio,
@@ -64,29 +66,89 @@ const Music = (() => {
     o.start(t);
     o.stop(t + 1.5);
   };
+  async function play() {
+    if (on) return true;
+
+    if (CONFIG.cancion.src) {
+      audio =
+        audio || Object.assign(new Audio(CONFIG.cancion.src), { loop: true });
+      try {
+        await audio.play();
+        on = true;
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+
+    ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
+    try {
+      await ctx.resume();
+      on = true;
+      tone(notes[step++ % notes.length]);
+      clearInterval(timer);
+      timer = setInterval(() => tone(notes[step++ % notes.length]), 420);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   return {
+    play,
     toggle() {
-      on = !on;
-      if (CONFIG.cancion.src) {
-        audio =
-          audio || Object.assign(new Audio(CONFIG.cancion.src), { loop: true });
-        on ? audio.play() : audio.pause();
-      } else if (on) {
-        ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
-        ctx.resume();
-        tone(notes[step++ % notes.length]);
-        timer = setInterval(() => tone(notes[step++ % notes.length]), 420);
-      } else clearInterval(timer);
-      return on;
+      if (on) {
+        on = false;
+        if (CONFIG.cancion.src && audio) audio.pause();
+        clearInterval(timer);
+        return false;
+      }
+      // toggle sigue disponible para el botón de reproducción/pausa.
+      play();
+      return true;
     },
   };
 })();
 
-/* ---------- Construcción de la página ---------- */
-const $ = (id) => document.getElementById(id);
+// Onda de la canción
+const wave = $("wave");
+for (let i = 0; i < 34; i++) {
+  const b = document.createElement("i");
+  const h = 10 + Math.abs(Math.sin(i * 0.7) * 30) + ((i * 7) % 13);
+  b.style.cssText = `--h:${h.toFixed(0)};--n:${i}`;
+  wave.appendChild(b);
+}
+/* ---------- Invitación ---------- */
+const invitation = $("invitation");
+const openBtn = $("openBtn");
+openBtn.addEventListener("click", async () => {
+  // El clic de "Abrir invitación" desbloquea el audio del navegador.
+  document.body.classList.remove("locked");
+  document.body.classList.add("opened");
+  invitation.classList.add("closing");
+
+  // Dejamos respirar la entrada para que el girasol no aparezca ya terminado.
+  setTimeout(() => {
+    document.body.classList.add("flower-ready");
+  }, 850);
+
+  // La música empieza automáticamente al abrir la invitación.
+  const on = await Music.play();
+  if (on) {
+    $("cancion").classList.add("playing");
+    $("play").setAttribute("aria-pressed", "true");
+    $("play").setAttribute("aria-label", "Pausar canción");
+    $("songHint").textContent = "Sonando…";
+  }
+
+  setTimeout(() => invitation.remove(), 1100);
+});
+
+/* ---------- Datos ---------- */
 const q = new URLSearchParams(location.search);
 if (q.get("para")) CONFIG.para = q.get("para");
 if (q.get("de")) CONFIG.de = q.get("de");
+
 document.title = `Para ${CONFIG.para} · Un detalle con gratitud`;
 $("nombre").textContent = CONFIG.para;
 $("tituloFotos").textContent = CONFIG.tituloFotos;
@@ -94,7 +156,7 @@ $("song").textContent = CONFIG.cancion.titulo;
 $("flower").innerHTML = sunflower({ petals: 21 });
 $("mini").innerHTML = sunflower({ petals: 12, cls: "still" });
 
-// Mensaje
+/* ---------- Mensaje ---------- */
 const box = $("mensaje");
 CONFIG.mensaje.forEach((t, i) => {
   const p = document.createElement("p");
@@ -107,55 +169,50 @@ firma.className = "firma";
 firma.textContent = "Con cariño, " + CONFIG.de;
 box.appendChild(firma);
 
-// La línea del centro se ilumina; las que ya pasaron quedan más tenues pero legibles
 const lines = [...document.querySelectorAll(".ln")];
 const ioLit = new IntersectionObserver(
   (es) => es.forEach((e) => e.target.classList.toggle("lit", e.isIntersecting)),
-  { rootMargin: "-40% 0px -40% 0px" },
+  { rootMargin: "-38% 0px -38% 0px" },
 );
 const ioSeen = new IntersectionObserver(
   (es) =>
     es.forEach((e) => {
       if (e.isIntersecting) e.target.classList.add("seen");
     }),
-  { rootMargin: "0px 0px -45% 0px" },
+  { rootMargin: "0px 0px -35% 0px" },
 );
 lines.forEach((l) => {
   ioLit.observe(l);
   ioSeen.observe(l);
 });
 
-// Fotos
+/* ---------- Galería ---------- */
 const track = $("track"),
   dots = $("dots");
-CONFIG.fotos.forEach((f, i) => {
+CONFIG.fotos.forEach((f) => {
   const fig = document.createElement("figure");
   fig.className = "item";
-  const arco = document.createElement("div");
-  arco.className = "arco";
-  if (f.src) {
-    const im = new Image();
-    im.src = f.src;
-    im.alt = f.pie || "";
-    im.className = "ph";
-    im.loading = "lazy";
-    arco.appendChild(im);
-  } else {
-    const d = document.createElement("div");
-    d.className = "ph";
-    d.innerHTML = sunflower({ cls: "still" }) + "<span>Tu foto aquí</span>";
-    arco.appendChild(d);
-  }
+  const card = document.createElement("div");
+  card.className = "photo-card";
+
+  const im = new Image();
+  im.src = f.src;
+  im.alt = f.pie || "";
+  im.className = "ph";
+  im.loading = "lazy";
+  card.appendChild(im);
+
   const cap = document.createElement("figcaption");
   cap.textContent = f.pie || "";
-  fig.append(arco, cap);
+  fig.append(card, cap);
   track.appendChild(fig);
   dots.appendChild(document.createElement("i"));
 });
-const step = () =>
-  track.firstElementChild
-    ? track.firstElementChild.getBoundingClientRect().width + 34
-    : 300;
+
+const step = () => {
+  const item = track.querySelector(".item");
+  return item ? item.getBoundingClientRect().width + 22 : 320;
+};
 const paintDots = () => {
   const i = Math.round(track.scrollLeft / step());
   [...dots.children].forEach((d, k) =>
@@ -169,79 +226,82 @@ $("prev").onclick = () => track.scrollBy({ left: -step(), behavior: "smooth" });
 $("next").onclick = () => track.scrollBy({ left: step(), behavior: "smooth" });
 paintDots();
 
-// Onda de la canción
-const wave = $("wave");
-for (let i = 0; i < 34; i++) {
-  const b = document.createElement("i");
-  const h = 10 + Math.abs(Math.sin(i * 0.7) * 30) + ((i * 7) % 13);
-  b.style.cssText = `--h:${h.toFixed(0)};--n:${i}`;
-  wave.appendChild(b);
-}
-$("play").addEventListener("click", () => {
-  const on = Music.toggle();
+/* ---------- Luciérnagas ---------- */
+(() => {
+  const cv = $("fly"),
+    cx = cv.getContext("2d");
+  let W = 0,
+    H = 0,
+    dpr = 1,
+    flies = [];
+
+  function size() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth;
+    H = window.innerHeight;
+    cv.width = W * dpr;
+    cv.height = H * dpr;
+    cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = W < 600 ? 30 : 58;
+    if (flies.length !== n) {
+      flies = Array.from({ length: n }, () => ({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: 1.2 + Math.random() * 2,
+        a: Math.random() * Math.PI * 2,
+        s: 0.08 + Math.random() * 0.28,
+        p: Math.random() * Math.PI * 2,
+        f: 0.55 + Math.random() * 1.2,
+      }));
+    }
+  }
+
+  size();
+  window.addEventListener("resize", size);
+
+  function draw(t) {
+    cx.clearRect(0, 0, W, H);
+    cx.globalCompositeOperation = "lighter";
+
+    for (const f of flies) {
+      f.a += Math.sin(t / 2500 + f.p) * 0.018;
+      f.x += Math.cos(f.a) * f.s;
+      f.y += Math.sin(f.a) * f.s - 0.035;
+
+      if (f.x < -25) f.x = W + 25;
+      if (f.x > W + 25) f.x = -25;
+      if (f.y < -25) f.y = H + 25;
+      if (f.y > H + 25) f.y = -25;
+
+      const pulse = 0.5 + 0.5 * Math.sin((t / 1000) * f.f + f.p);
+      const al = 0.12 + 0.88 * pulse * pulse;
+      const R = f.r * 7;
+
+      const gr = cx.createRadialGradient(f.x, f.y, 0, f.x, f.y, R);
+      gr.addColorStop(0, `rgba(255,244,170,${al})`);
+      gr.addColorStop(0.22, `rgba(255,216,75,${al * 0.55})`);
+      gr.addColorStop(1, "rgba(255,210,70,0)");
+
+      cx.fillStyle = gr;
+      cx.beginPath();
+      cx.arc(f.x, f.y, R, 0, Math.PI * 2);
+      cx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+/* ---------- Botón de canción ---------- */
+$("play").addEventListener("click", async () => {
+  const on = await Music.toggle();
   $("cancion").classList.toggle("playing", on);
   $("play").setAttribute("aria-pressed", on);
   $("play").setAttribute(
     "aria-label",
     on ? "Pausar canción" : "Reproducir canción",
   );
-  $("songHint").textContent = on ? "Sonando…" : "Toca para escucharla";
+  $("songHint").textContent = on
+    ? "Sonando… · Mira cómo reacciona la onda"
+    : "Toca el botón para comenzar";
 });
-
-/* ---------- Luciérnagas ---------- */
-(() => {
-  const cv = $("fly"),
-    cx = cv.getContext("2d"),
-    reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let W, H, dpr;
-  const flies = [];
-  const size = () => {
-    dpr = Math.min(devicePixelRatio || 1, 2);
-    W = innerWidth;
-    H = innerHeight;
-    cv.width = W * dpr;
-    cv.height = H * dpr;
-    cx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  };
-  size();
-  addEventListener("resize", size);
-  const n = W < 600 ? 34 : 60;
-  for (let i = 0; i < n; i++)
-    flies.push({
-      x: Math.random() * W,
-      y: Math.random() * H,
-      r: 1.4 + Math.random() * 2.2,
-      a: Math.random() * 6.28,
-      s: 0.12 + Math.random() * 0.32,
-      p: Math.random() * 6.28,
-      f: 0.5 + Math.random() * 1.1,
-    });
-  function draw(t) {
-    cx.clearRect(0, 0, W, H);
-    cx.globalCompositeOperation = "lighter";
-    for (const f of flies) {
-      if (!reduce) {
-        f.a += Math.sin(t / 2600 + f.p) * 0.025;
-        f.x += Math.cos(f.a) * f.s;
-        f.y += Math.sin(f.a) * f.s - 0.06;
-        if (f.x < -20) f.x = W + 20;
-        if (f.x > W + 20) f.x = -20;
-        if (f.y < -20) f.y = H + 20;
-        if (f.y > H + 20) f.y = -20;
-      }
-      const g = 0.5 + 0.5 * Math.sin((t / 1000) * f.f + f.p),
-        al = 0.12 + 0.88 * g * g,
-        R = f.r * 7;
-      const gr = cx.createRadialGradient(f.x, f.y, 0, f.x, f.y, R);
-      gr.addColorStop(0, `rgba(255,236,150,${al})`);
-      gr.addColorStop(0.25, `rgba(255,210,70,${al * 0.45})`);
-      gr.addColorStop(1, "rgba(255,210,70,0)");
-      cx.fillStyle = gr;
-      cx.beginPath();
-      cx.arc(f.x, f.y, R, 0, 6.283);
-      cx.fill();
-    }
-    if (!reduce) requestAnimationFrame(draw);
-  }
-  requestAnimationFrame(draw);
-})();

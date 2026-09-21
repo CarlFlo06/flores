@@ -2,144 +2,158 @@
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-
     <title>Para la Profesora Karen Corilla</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
     <link
-      href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Outfit:wght@300;400;500;600&family=Young+Serif&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Outfit:wght@300;400;500;600&family=Young+Serif&display=swap"
       rel="stylesheet"
     />
-
     <link rel="stylesheet" href="style.css" />
   </head>
-
-  <body>
+  <body class="locked">
     <canvas id="fly" aria-hidden="true"></canvas>
 
-    <!-- ================= HERO ================= -->
-
-    <header class="hero">
-      <span class="pill"> 21 de septiembre, Día de las Flores Amarillas </span>
-
-      <div class="stage" id="stage">
-        <div class="glow"></div>
-        <div class="spin" id="flower"></div>
-      </div>
-
-      <h1 class="titulo">
-        <span class="para"> Un detalle especial para </span>
-
-        <span class="nombre" id="nombre"></span>
-      </h1>
-
-      <div class="teacher-badge">
-        Por todo lo que enseña y por la huella que deja
-      </div>
-
-      <div class="cue" aria-hidden="true">
-        <span>Desliza y lee despacio</span>
-        <i></i>
-      </div>
-    </header>
-
-    <!-- ================= CONTENIDO ================= -->
-
-    <main>
-      <!-- MENSAJE -->
-
-      <section
-        class="mensaje"
-        id="mensaje"
-        aria-label="Mensaje para la profesora"
-      ></section>
-
-      <!-- FOTOS -->
-
-      <section class="fotos" aria-label="Galería de recuerdos">
-        <header>
-          <h2 id="tituloFotos"></h2>
-        </header>
-
-        <div
-          class="track"
-          id="track"
-          tabindex="0"
-          aria-label="Galería de fotos"
-        ></div>
-
-        <div class="dots" id="dots" aria-hidden="true"></div>
-      </section>
-
-      <!-- ================= VIDEO ================= -->
-
-      <section class="video-seccion" aria-label="Video">
-        <div class="video-contenedor">
-          <video
-            class="video"
-            src="img/video.mp4"
-            controls
-            playsinline
-            preload="metadata"
-          ></video>
-        </div>
-      </section>
-
-      <!-- ================= CANCIÓN ================= -->
-
-      <section class="cancion" id="cancion" aria-label="Canción">
-        <button
-          class="play"
-          id="play"
-          aria-label="Reproducir canción"
-          aria-pressed="false"
-        >
-          <svg
-            class="i-play"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"
-            />
-          </svg>
-
-          <svg
-            class="i-pause"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <rect x="6" y="5" width="4.2" height="14" rx="1.2" />
-            <rect x="13.8" y="5" width="4.2" height="14" rx="1.2" />
-          </svg>
+    <!-- INVITACIÓN DE INICIO -->
+    <section class="invitation" id="invitation" aria-label="Invitación">
+      <div class="invitation-glow"></div>
+      <div class="invitation-card">
+        <div class="invite-flower">✦</div>
+        <span class="invite-kicker">Una pequeña sorpresa</span>
+        <h1>Para la profesora<br /><strong>Karen Corilla</strong></h1>
+        <div class="invite-line"></div>
+        <p>
+          Un detalle preparado con cariño para agradecer todo lo que comparte
+          con sus estudiantes.
+        </p>
+        <button class="open-btn" id="openBtn">
+          <span>Abrir invitación</span>
+          <b>→</b>
         </button>
+        <small>21 de septiembre · Flores amarillas</small>
+      </div>
+    </section>
 
-        <h3 id="song"></h3>
+    <div class="site-content" id="siteContent">
+      <header class="hero">
+        <span class="pill">21 de septiembre · Día de las Flores Amarillas</span>
 
-        <small id="songHint"> Toca para escucharla </small>
+        <div class="stage" id="stage">
+          <div class="glow"></div>
+          <div class="spin" id="flower"></div>
+        </div>
 
-        <div class="wave" id="wave" aria-hidden="true"></div>
-      </section>
-    </main>
+        <h1 class="titulo">
+          <span class="para">Un detalle especial para</span>
+          <span class="nombre" id="nombre"></span>
+        </h1>
 
-    <!-- ================= FOOTER ================= -->
+        <div class="teacher-badge">
+          Por todo lo que enseña y por la huella que deja
+        </div>
 
-    <footer>
-      <div class="mini" id="mini"></div>
+        <div class="cue" aria-hidden="true">
+          <span>Desliza y lee despacio</span>
+          <i></i>
+        </div>
+      </header>
 
-      <b> Un detalle con gratitud </b>
+      <main>
+        <section
+          class="mensaje"
+          id="mensaje"
+          aria-label="Mensaje para la profesora"
+        ></section>
 
-      <span> Para una profesora que deja huella </span>
-    </footer>
+        <section class="fotos" aria-label="Galería de recuerdos">
+          <div class="section-heading">
+            <span class="eyebrow">Recuerdos</span>
+            <h2 id="tituloFotos"></h2>
+            <p>Pequeños momentos que también forman parte de lo aprendido.</p>
+          </div>
+
+          <div class="gallery-wrap">
+            <button class="gallery-arrow" id="prev" aria-label="Foto anterior">
+              ‹
+            </button>
+            <div
+              class="track"
+              id="track"
+              tabindex="0"
+              aria-label="Galería de fotos"
+            ></div>
+            <button class="gallery-arrow" id="next" aria-label="Foto siguiente">
+              ›
+            </button>
+          </div>
+          <div class="dots" id="dots" aria-hidden="true"></div>
+        </section>
+
+        <!-- VIDEO -->
+        <section class="video-seccion" aria-label="Video especial">
+          <div class="section-heading video-heading">
+            <span class="eyebrow">Un recuerdo especial</span>
+            <h2>Un video para usted</h2>
+            <p>Un pequeño momento preparado especialmente para esta ocasión.</p>
+          </div>
+          <div class="video-contenedor">
+            <div class="video-frame">
+              <div class="video-shine"></div>
+              <video
+                class="video"
+                src="img/video.mp4"
+                controls
+                playsinline
+                preload="metadata"
+              ></video>
+            </div>
+          </div>
+        </section>
+
+        <!-- CANCIÓN -->
+        <section class="cancion" id="cancion" aria-label="Canción">
+          <button
+            class="play"
+            id="play"
+            aria-label="Reproducir canción"
+            aria-pressed="false"
+          >
+            <svg
+              class="i-play"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"
+              />
+            </svg>
+            <svg
+              class="i-pause"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <rect x="6" y="5" width="4.2" height="14" rx="1.2" />
+              <rect x="13.8" y="5" width="4.2" height="14" rx="1.2" />
+            </svg>
+          </button>
+          <h3 id="song"></h3>
+          <small id="songHint">Toca para escucharla</small>
+          <div class="wave" id="wave" aria-hidden="true"></div>
+        </section>
+      </main>
+
+      <footer>
+        <div class="mini" id="mini"></div>
+        <b>Un detalle con gratitud</b>
+        <span>Para una profesora que deja huella · 💛</span>
+      </footer>
+    </div>
 
     <script src="script.js"></script>
   </body>

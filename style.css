@@ -199,3 +199,548 @@ footer b{display:block;color:var(--cream);font:400 20px "Young Serif",Georgia,se
   animation-play-state:paused;
   opacity:.4;
 }
+
+
+/* =========================================================
+   AJUSTES RESPONSIVE EXTRA
+   Mantiene el diseño original y adapta tamaños/espaciados
+   para celulares pequeños, tablets y pantallas altas.
+   ========================================================= */
+
+.teacher-badge{
+  max-width:min(90vw,520px);
+  margin:clamp(12px,2vh,22px) auto 0;
+  padding:9px 16px;
+  border:1px solid rgba(245,194,27,.22);
+  border-radius:999px;
+  background:rgba(245,194,27,.045);
+  color:rgba(248,239,212,.72);
+  font-size:13px;
+  line-height:1.45;
+  text-align:center;
+}
+
+img, video, svg, canvas{max-width:100%;}
+
+@media (max-width:700px){
+  .invitation{padding:16px;}
+  .invitation-card{
+    width:min(100%,520px);
+    padding:clamp(34px,8vw,48px) clamp(20px,6vw,34px) 28px;
+    border-radius:24px;
+  }
+  .invitation h1{
+    font-size:clamp(27px,8vw,36px);
+    margin-top:10px;
+  }
+  .invitation p{
+    font-size:14px;
+    line-height:1.6;
+  }
+  .open-btn{
+    width:min(100%,290px);
+    justify-content:space-between;
+    padding-left:20px;
+    padding-right:14px;
+    gap:10px;
+  }
+
+  .hero{
+    min-height:100svh;
+    padding-top:max(24px,calc(3svh + env(safe-area-inset-top)));
+    padding-bottom:max(22px,calc(3svh + env(safe-area-inset-bottom)));
+  }
+  .pill{
+    width:100%;
+    max-width:430px;
+    padding:8px 14px;
+    font-size:12px;
+  }
+  .stage{
+    width:min(74vw,330px);
+    margin:1svh 0;
+  }
+  .titulo{
+    width:100%;
+    max-width:100%;
+    padding:0 8px;
+  }
+  .titulo .para{
+    font-size:clamp(18px,5vw,23px);
+  }
+  .titulo .nombre{
+    font-size:clamp(48px,15vw,82px);
+    line-height:.98;
+    overflow-wrap:anywhere;
+  }
+  .teacher-badge{
+    width:100%;
+    max-width:340px;
+    font-size:12px;
+    padding:8px 13px;
+  }
+  .cue{font-size:12px;}
+
+  .mensaje{
+    width:100%;
+    max-width:760px;
+    padding-top:13svh;
+    padding-bottom:16svh;
+  }
+  .ln{
+    font-size:clamp(22px,6.5vw,32px);
+    line-height:1.35;
+  }
+
+  .section-heading{
+    width:100%;
+    padding-left:18px;
+    padding-right:18px;
+  }
+  .section-heading h2{
+    font-size:clamp(28px,8vw,40px);
+  }
+
+  .fotos{padding-bottom:11svh;}
+  .track{
+    width:100%;
+    gap:14px;
+    padding-top:10px;
+    padding-bottom:20px;
+    padding-left:12vw;
+    padding-right:12vw;
+    scroll-padding-inline:12vw;
+  }
+  .item{
+    flex:0 0 76vw;
+    max-width:330px;
+  }
+  .photo-card{
+    width:100%;
+    aspect-ratio:4/3;
+    padding:6px;
+    border-radius:18px;
+  }
+  .photo-card:after{
+    inset:6px;
+    border-radius:13px;
+  }
+  .ph{border-radius:13px;}
+  .item figcaption{
+    margin-top:12px;
+    font-size:13px;
+    padding:0 6px;
+  }
+
+  .video-seccion{
+    padding-left:16px;
+    padding-right:16px;
+    padding-bottom:12svh;
+  }
+  .video-heading{margin-bottom:24px;}
+  .video-contenedor{
+    width:min(100%,430px);
+  }
+  .video-frame{
+    padding:6px;
+    border-radius:22px;
+  }
+  .video{
+    border-radius:16px;
+  }
+  .video-shine{
+    inset:6px;
+    border-radius:16px;
+  }
+
+  .cancion{
+    width:100%;
+    max-width:560px;
+    padding-left:18px;
+    padding-right:18px;
+    padding-bottom:12svh;
+  }
+  .play{width:78px;height:78px;}
+  .wave{
+    gap:3px;
+    max-width:100%;
+    overflow:hidden;
+  }
+  .wave i{width:3px;}
+
+  footer{
+    padding-left:16px;
+    padding-right:16px;
+  }
+}
+
+@media (max-width:420px){
+  .invitation-card{padding-top:30px;}
+  .invite-flower{font-size:28px;margin-bottom:12px;}
+  .invitation h1{font-size:clamp(25px,8vw,32px);}
+  .invitation p{font-size:13px;}
+  .open-btn{font-size:14px;}
+
+  .hero{
+    padding-left:12px;
+    padding-right:12px;
+  }
+  .stage{width:min(72vw,285px);}
+  .titulo .nombre{font-size:clamp(43px,14vw,68px);}
+  .teacher-badge{max-width:300px;}
+
+  .mensaje{padding-left:16px;padding-right:16px;}
+  .ln{font-size:clamp(21px,6.4vw,28px);}
+
+  .track{
+    padding-left:9vw;
+    padding-right:9vw;
+    scroll-padding-inline:9vw;
+  }
+  .item{
+    flex-basis:82vw;
+    max-width:none;
+  }
+  .photo-card{aspect-ratio:4/3;}
+}
+
+@media (max-width:340px){
+  .invitation{padding:10px;}
+  .invitation-card{
+    padding:26px 16px 22px;
+    border-radius:20px;
+  }
+  .invitation h1{font-size:24px;}
+  .invitation p{font-size:12px;}
+  .invitation-card small{font-size:9px;}
+  .open-btn{width:100%;}
+
+  .stage{width:68vw;}
+  .titulo .para{font-size:17px;}
+  .titulo .nombre{font-size:39px;}
+  .teacher-badge{font-size:11px;}
+
+  .ln{font-size:20px;}
+  .section-heading h2{font-size:27px;}
+}
+
+@media (orientation:landscape) and (max-height:520px){
+  .hero{
+    min-height:auto;
+    padding-top:24px;
+    padding-bottom:36px;
+    gap:14px;
+  }
+  .stage{width:min(34vh,250px);}
+  .titulo .nombre{font-size:min(13vw,68px);}
+  .cue{display:none;}
+  .invitation-card{
+    max-height:94svh;
+    overflow-y:auto;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .stage .spin,
+  .glow,
+  .invite-flower,
+  .cue i,
+  .playing .play::before,
+  .playing .wave i{
+    animation:none !important;
+  }
+  html{scroll-behavior:auto;}
+}
+
+/* =========================================================
+   RESPONSIVE V2 - ajuste final para móviles/tablets
+   ========================================================= */
+html, body { width:100%; min-width:0; max-width:100%; }
+body { overflow-x:hidden; }
+.site-content, main, section, header, footer { min-width:0; max-width:100%; }
+
+@media screen and (max-width: 767px) {
+  .invitation { padding: max(10px, 3vw); }
+  .invitation-card {
+    width:100%;
+    max-width:520px;
+    max-height:calc(100svh - 20px);
+    overflow:auto;
+    padding:clamp(24px, 7vw, 42px) clamp(16px, 6vw, 30px) clamp(22px, 6vw, 30px);
+  }
+  .invitation-card h1 { font-size:clamp(24px, 8vw, 36px); }
+  .invitation-card p { font-size:clamp(12px, 3.6vw, 15px); }
+  .open-btn { max-width:100%; }
+
+  .hero {
+    width:100%;
+    min-height:100svh;
+    padding:24px 12px max(24px, env(safe-area-inset-bottom));
+    overflow:hidden;
+  }
+  .pill { width:min(100%, 430px); }
+  .stage {
+    width:min(68vw, 300px);
+    max-width:300px;
+    margin:12px 0;
+  }
+  .stage .spin, .stage svg { width:100%; max-width:100%; }
+  .titulo { width:100%; max-width:100%; overflow:hidden; }
+  .titulo .para { font-size:clamp(17px, 5.5vw, 23px); }
+  .titulo .nombre {
+    width:100%;
+    font-size:clamp(40px, 14vw, 78px);
+    line-height:.95;
+    letter-spacing:-.03em;
+    overflow-wrap:anywhere;
+    word-break:normal;
+  }
+  .teacher-badge { width:min(100%, 340px); }
+
+  .mensaje {
+    width:100%;
+    padding:14svh 16px 16svh;
+  }
+  .ln {
+    width:100%;
+    font-size:clamp(20px, 6.3vw, 32px);
+    line-height:1.34;
+    overflow-wrap:break-word;
+  }
+  .firma { font-size:clamp(28px, 8vw, 42px); }
+
+  .section-heading { width:100%; padding:0 16px; }
+  .section-heading h2 { font-size:clamp(27px, 8vw, 40px); }
+  .section-heading p { font-size:13px; }
+
+  .fotos { width:100%; overflow:hidden; }
+  .gallery-wrap { width:100%; display:block; }
+  .track {
+    width:100%;
+    max-width:100%;
+    display:flex;
+    gap:14px;
+    padding:12px 10vw 22px;
+    overflow-x:auto;
+    overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;
+  }
+  .item {
+    flex:0 0 min(80vw, 340px);
+    width:min(80vw, 340px);
+    max-width:none;
+  }
+  .photo-card {
+    width:100%;
+    aspect-ratio:16/10;
+    padding:5px;
+    border-radius:18px;
+  }
+  .ph { width:100%; height:100%; object-fit:cover; }
+  .item figcaption { max-width:100%; padding:0 4px; }
+  .gallery-arrow { display:none; }
+
+  .video-seccion { width:100%; padding:4svh 12px 12svh; overflow:hidden; }
+  .video-contenedor { width:100%; max-width:430px; }
+  .video-frame { width:100%; padding:5px; border-radius:20px; }
+  .video { width:100%; max-width:100%; height:auto; aspect-ratio:9/16; border-radius:15px; }
+  .video-shine { inset:5px; border-radius:15px; }
+
+  .cancion { width:100%; padding:0 16px 12svh; overflow:hidden; }
+  .wave { width:100%; max-width:340px; margin-left:auto; margin-right:auto; gap:3px; }
+  .wave i { flex:0 0 3px; }
+
+  footer { width:100%; padding-left:16px; padding-right:16px; }
+}
+
+@media screen and (max-width: 380px) {
+  .hero { padding-left:8px; padding-right:8px; }
+  .stage { width:min(64vw, 255px); }
+  .titulo .nombre { font-size:clamp(37px, 13.5vw, 58px); }
+  .teacher-badge { font-size:11px; padding:7px 10px; }
+  .mensaje { padding-left:13px; padding-right:13px; }
+  .ln { font-size:clamp(19px, 6.2vw, 25px); }
+  .track { padding-left:8vw; padding-right:8vw; }
+  .item { flex-basis:84vw; width:84vw; }
+}
+
+@media screen and (orientation:landscape) and (max-height:600px) {
+  .invitation-card { max-height:90svh; overflow:auto; }
+  .hero {
+    min-height:auto;
+    padding-top:18px;
+    padding-bottom:28px;
+  }
+  .stage { width:min(32vh, 230px); margin:8px 0; }
+  .cue { display:none; }
+  .titulo .nombre { font-size:min(12vw, 62px); }
+}
+
+/* =========================================================
+   INVITACIÓN - RESPONSIVE FINAL
+   Solo afecta la pantalla de invitación inicial.
+   ========================================================= */
+.invitation-card{
+  width:min(520px, calc(100vw - 32px));
+  max-height:calc(100svh - 32px);
+  padding:clamp(28px, 6vh, 52px) clamp(18px, 6vw, 38px) clamp(24px, 5vh, 38px);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.invitation-card .invite-flower{flex:0 0 auto}
+.invitation-card .invite-kicker{max-width:100%;line-height:1.4}
+.invitation-card h1{
+  width:100%;
+  max-width:100%;
+  font-size:clamp(26px, 7vw, 44px);
+  line-height:1.12;
+  overflow-wrap:break-word;
+}
+.invitation-card h1 strong{overflow-wrap:anywhere}
+.invitation-card p{
+  width:100%;
+  max-width:390px;
+  font-size:clamp(13px, 3.5vw, 15px);
+  line-height:1.6;
+}
+.invitation-card .open-btn{
+  width:min(100%, 250px);
+  justify-content:center;
+  margin:clamp(18px, 4vh, 28px) auto 14px;
+  padding:11px 14px 11px 18px;
+  gap:10px;
+}
+.invitation-card small{max-width:100%;line-height:1.4}
+
+@media (max-width:480px){
+  .invitation{padding:10px;}
+  .invitation-card{
+    width:100%;
+    max-width:430px;
+    max-height:calc(100svh - 20px);
+    min-height:0;
+    border-radius:22px;
+    padding:clamp(22px, 6svh, 34px) clamp(16px, 6vw, 26px) clamp(20px, 5svh, 28px);
+  }
+  .invitation-card .invite-flower{
+    font-size:clamp(24px, 7vw, 32px);
+    margin-bottom:clamp(8px, 2vh, 14px);
+  }
+  .invitation-card .invite-kicker{
+    font-size:clamp(9px, 2.7vw, 11px);
+    letter-spacing:1.8px;
+  }
+  .invitation-card h1{
+    font-size:clamp(23px, 8vw, 34px);
+    margin:9px 0 14px;
+  }
+  .invitation-card .invite-line{margin-bottom:14px;}
+  .invitation-card p{font-size:clamp(12px, 3.7vw, 14px);line-height:1.5;}
+  .invitation-card .open-btn{
+    width:min(100%, 230px);
+    font-size:14px;
+    margin-top:17px;
+  }
+  .invitation-card small{font-size:9px;}
+}
+
+@media (max-width:360px){
+  .invitation{padding:7px;}
+  .invitation-card{
+    max-height:calc(100svh - 14px);
+    padding:18px 14px 18px;
+    border-radius:19px;
+  }
+  .invitation-card .invite-flower{font-size:23px;margin-bottom:7px;}
+  .invitation-card h1{font-size:clamp(21px, 7.8vw, 29px);margin:7px 0 11px;}
+  .invitation-card p{font-size:12px;line-height:1.42;}
+  .invitation-card .open-btn{margin-top:13px;margin-bottom:10px;padding:9px 12px 9px 15px;font-size:13px;}
+  .invitation-card .open-btn b{width:26px;height:26px;font-size:16px;}
+  .invitation-card small{font-size:8px;}
+}
+
+@media (orientation:landscape) and (max-height:500px){
+  .invitation{padding:8px;}
+  .invitation-card{
+    width:min(560px, calc(100vw - 16px));
+    max-height:calc(100svh - 16px);
+    padding:14px 24px;
+    display:grid;
+    grid-template-columns:auto 1fr;
+    column-gap:16px;
+    align-items:center;
+  }
+  .invitation-card .invite-flower{grid-row:1 / span 5;margin:0;font-size:25px;}
+  .invitation-card .invite-kicker,
+  .invitation-card h1,
+  .invitation-card .invite-line,
+  .invitation-card p,
+  .invitation-card .open-btn,
+  .invitation-card small{grid-column:2;}
+  .invitation-card h1{font-size:clamp(21px, 5vw, 30px);margin:5px 0 8px;}
+  .invitation-card p{font-size:12px;line-height:1.35;}
+  .invitation-card .open-btn{margin:10px auto 7px;}
+}
+
+
+/* AJUSTE FINAL: invitación con tamaño fijo, sin barras de desplazamiento */
+.invitation-card{
+  width:520px;
+  height:560px;
+  max-width:calc(100vw - 32px);
+  max-height:calc(100svh - 20px);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+@media (max-width:700px){
+  .invitation-card{
+    width:520px;
+    height:560px;
+    max-width:calc(100vw - 24px);
+    max-height:calc(100svh - 20px);
+    padding:24px 22px;
+  }
+}
+
+@media (max-width:380px){
+  .invitation-card{
+    max-width:calc(100vw - 20px);
+    max-height:calc(100svh - 14px);
+    padding:18px 16px;
+  }
+}
+
+/* Ajuste final: invitación responsiva sin barras de desplazamiento */
+html, body { overflow-x: hidden; }
+.invitation {
+  overflow: hidden;
+  padding: 12px;
+}
+.invitation-card {
+  width: min(520px, 100%);
+  max-height: calc(100svh - 24px);
+  overflow: hidden;
+  padding: clamp(24px, 5vh, 52px) clamp(18px, 5vw, 38px) clamp(20px, 4vh, 38px);
+}
+@media (max-width: 600px) {
+  .invitation-card { border-radius: 22px; }
+  .invite-flower { font-size: clamp(24px, 7vw, 32px); margin-bottom: 10px; }
+  .invitation h1 { font-size: clamp(24px, 7.5vw, 36px); margin: 8px 0 12px; }
+  .invitation p { font-size: clamp(12px, 3.5vw, 14px); line-height: 1.45; }
+  .invite-line { margin-bottom: 12px; }
+  .open-btn { margin: 18px auto 10px; padding: 10px 14px 10px 18px; }
+  .open-btn b { width: 26px; height: 26px; }
+}
+@media (max-width: 600px) and (max-height: 650px) {
+  .invitation-card { padding-top: 18px; padding-bottom: 16px; }
+  .invite-flower { margin-bottom: 6px; }
+  .invitation h1 { margin: 6px 0 8px; }
+  .invitation p { line-height: 1.3; }
+  .open-btn { margin-top: 12px; margin-bottom: 6px; }
+}
